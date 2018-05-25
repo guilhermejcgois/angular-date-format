@@ -1,6 +1,6 @@
 {
   "name": "angular-date-format",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "",
   "main": "./bundles/angular-date-format.umd.js",
   "module": "./angular-date-format.es5.js",
@@ -8,7 +8,7 @@
   "typings": "./angular-date-format.d.ts",
   "author": {
     "name": "Thompsom Moreira",
-    "email": "thompsom@gorilainvest.com.br"
+    "email": "thompson.moreira@gorilainvest.com.br"
   },
   "contributors": [
     {
@@ -52,30 +52,35 @@
     "size": "size-limit",
     "install:ng4": "npm run install:ng4:common && npm run install:ng4:material && npm run install:ng4:compiler && npm run install:ng4:extra\"",
     "install:ng4:common": "npm i @angular/common@4 @angular/core@4 @angular/forms@4 @angular/http@4 @angular/platform-browser@4 @angular/platform-browser-dynamic@4",
-    "install:ng4:material": "npm i @angular/animations@4 @angular/cdk@2.0.0-beta @angular/material@2.0.0-beta",
+    "install:ng4:material": "npm i @angular/animations@4 @angular/cdk@2.0.0-beta.12 @angular/material@2.0.0-beta.12",
     "install:ng4:compiler": "npm i @angular/compiler@4 @angular/compiler-cli@4",
-    "install:ng4:extra": "npm i typescript@2.3.4",
+    "install:ng4:extra": "npm i typescript@2.3.4 ramda@0.25.0 rxjs@5.0.1",
     "install:ng5": "npm run install:ng5:common && npm run install:ng5:material && npm run install:ng5:compiler && npm run install:ng5:extra\"",
     "install:ng5:common": "npm i @angular/common@5 @angular/core@5 @angular/forms@5 @angular/http@5 @angular/platform-browser@5 @angular/platform-browser-dynamic@5",
     "install:ng5:material": "npm i @angular/animations@5 @angular/cdk@5 @angular/material@5",
     "install:ng5:compiler": "npm i @angular/compiler@5 @angular/compiler-cli@5",
-    "install:ng5:extra": "npm i typescript@2.6.1"
+    "install:ng5:extra": "npm i typescript@2.4.2 ramda@0.25.0 rxjs@5.5.6",
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once"
   },
   "peerDependencies": {
     "@angular/animations": ">=4 <6",
-    "@angular/cdk": ">=2.0.0-beta <6",
+    "@angular/cdk": ">=2.0.0-beta.12 <6",
     "@angular/common": ">=4 <6",
     "@angular/core": ">=4 <6",
     "@angular/forms": ">=4 <6",
     "@angular/http": ">=4 <6",
-    "@angular/material": ">=2.0.0-beta <6",
+    "@angular/material": ">=2.0.0-beta.12 <6",
     "@angular/platform-browser": ">=4 <6",
-    "@angular/platform-browser-dynamic": ">=4 <6"
+    "@angular/platform-browser-dynamic": ">=4 <6",
+    "ramda": "^0.25.0",
+    "rxjs": ">=5.0.1",
+    "typescript": "2.3.4 || 2.4.2"
   },
   "devDependencies": {
-    "@angular/cli": "^1.7.0",
-    "@angular/compiler": "^5.2.10",
-    "@angular/compiler-cli": "^5.2.10",
+    "@angular/cli": ">=1.6.1 <=1.7.4",
+    "@angular/compiler": ">=4 <6",
+    "@angular/compiler-cli": ">=4 <6",
     "@compodoc/compodoc": "1.0.4",
     "@types/jasmine": "2.8.2",
     "@types/node": "6.0.92",
@@ -112,11 +117,13 @@
     "rollup-plugin-sourcemaps": "0.4.2",
     "rollup-plugin-uglify": "2.0.1",
     "run-sequence": "2.2.0",
+    "semantic-release": "^15.5.0",
+    "semantic-release-tamia": "^2.2.4",
     "size-limit": "0.13.2",
     "systemjs": "0.20.19",
+    "travis-deploy-once": "^5.0.0",
     "ts-node": "3.3.0",
     "tslint": "5.8.0",
-    "typescript": "^2.6.1",
     "zone.js": "0.8.18"
   },
   "dependencies": {
@@ -126,5 +133,10 @@
     {
       "path": "./dist/angular-date-format.js"
     }
-  ]
+  ],
+  "release": {
+    "analyzeCommits": "semantic-release-tamia/analyzeCommits",
+    "generateNotes": "semantic-release-tamia/generateNotes",
+    "verifyRelease": "semantic-release-tamia/verifyRelease"
+  }
 }
