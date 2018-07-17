@@ -30,7 +30,7 @@ const es5OutputFolder = path.join(compilationFolder, 'lib-es5');
 
 const ngcpjson = require('@angular/compiler-cli/package.json');
 const ngcversion = ngcpjson.version.split('.')[0];
-const es5NgcPrj = ngcversion == 5
+const es5NgcPrj = ngcversion >= 5
   && ['-p', `${tempLibFolder}/tsconfig.es5.json`]
   || { project: `${tempLibFolder}/tsconfig.es5.json` };
 
