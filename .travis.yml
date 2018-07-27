@@ -29,19 +29,13 @@ script:
 - npm run build
 - npm run test:once
 before_deploy:
-- '{ sed -nE ''s/^[ \t]*"version": "([0-9]{1,}\.[0-9]{1,}\.)[0-9x]{1,}",$/\1/p'' package.json;
-  git describe --abbrev=0 | sed -E ''s/^v([0-9]{1,}\.[0-9]{1,}\.)([0-9]{1,})$/\1 \2/g'';
-  } | tr "\n" " " | awk ''{printf($1==$2?"v"$2$3+1:"v"$1$3")}'' | xargs -I {} git
-  tag -a {} -m "{}"
-
-'
 - cd dist
 deploy:
   provider: npm
   skip_cleanup: true
-  email: tigredonorte3@gmail.com
+  email: it+github@gorilainvest.com.br
   on:
     repo: gorilainvest/angular-date-format
-    branch: master
+    tags: true
   api_key:
-    secure: QrexzUg7cl2saDRl5cb3ExM9c+T+VJoY1xHADRuZAm8Hxqr6Ko6gotPXiHGCt8gcF9GVRfOV0PzmnyMoSYQihbicMIvjmGmR6ihBjai1wvtiCK9YGOzkgu3rPqftplP+LDqJJtO10DqBUhzd0hC/zAxQa5+wx+KcUyUty56ZZqeTew04+Kba/rFAEMo5eQIhXwclyjgFuPkWU7er4dEuDoAd0Ir9q4dh6X2S+FAn4HR3RRZwwmMo4zBa6XkfjMuRKunfkPwdWIuFD593tg/Mo1h19xNLBtZCzU9UdP3g0NKSBmAchGxjbdHdDD7pQvMuza1ogGXsmDnVkpFRkNEh7EiTvUoo4ZAaVCzYjn2H97tMqACNagmyCsin7Dj6sDskEOb3oZVosv+P+H1oJXiV443Jx2udu1U0Ul4JhjmmSWMg+qdt9zGVHxBIKpGpoxxAleJaZGx9WJ9zoBRkJpJduWB9BO6VOxWD9rRK9ptDE6p8VSdsP8JDSVBj4Irc0uqo9tqdB9Fzh/PxRP8daWtLyZ0iwu00pZbs60xBXwWoIdFgHtQ1sokvA1UdP+IBP91ZcmY+UQGiYKzu3szi5sNE/F/H3sCXlxnSyVr87IIwrnMI5I4cHJcINfc3F2qjpzFK2w9r9V6dTirRJNgEHNN20VwN2zFbrujmpuaeHSz13qA=
+    secure: Qyc+uwaCX8K9LZ/jJEIH4oiw7I0o7y5zXj8ch7uEGd/c5gOReEu1XCjbwHXjklKsx/PkqZ+IioB5qYsiWmocbIHapIzshkR/AlTtyAwTVoApO4egdOvefHtZ74xZU40ctVwrxM4neGZIJOgghD30QsRrdECYOOgsigA2zwL30U8To3NH7G6nVun+aHbDyX3ANjTiBVIY8VtdRVmQ5CHiNQBmLKJBR932gFglhyOh+yNzFRlyb74gp21u/F50CLEOA9N2A6Vgk2/jivp51lTXQ/3ncBaFhFIbOt2fTeXyX7sfIV883f5s8xSV1qQp7mipNhYKdUcbsWtQpR6YmZiUeWb2B7Kdeikv7i5VpwnTYt53gvjdc9HMDrOF7MmI1L+2UsKh707kB28gZqTikVESj2xDMEilakF+BWXu254RaZNHP7d3UKJqzZNcyAHU//a3Twhr1NwCuJmawgOavmYBr7ouExVJyCKVq5TLKlyc87YoRWzNnLqunDrMIfYrSuiVadcgACID9wHDgemQCNXYAGtWPYwRPO+01225DcASoZuC5ZpOTZREScCWIA+5D/FfS/LEpqRc+qqLXdM2Zgo8xCBZv6h1xDz/3mIX/7EKZhzeJcgGv9vyx6y+sBPzYbwk2QwiqFp9d6tnhZQabW8ty5jNM++M5uV20LshpWvwuQs=
