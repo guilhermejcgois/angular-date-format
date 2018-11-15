@@ -1,43 +1,41 @@
 language: node_js
 cache:
   directories:
-  - "~/.npm"
+    - "~/.npm"
 notifications:
-  email: false
+  email:
+    recipients:
+      - guilherme.gois@gorilainvest.com.br
+    on_success: change
+    on_failure: always
 node_js:
-- node
-- '6'
+  - node
+  - '6'
 env:
-- NG_VERSION=4 TS_VERSION=2.3.4 MAT_VERSION=2.0.0-beta.12 CLI_VERSION=1.6.1 RX_VERSION=5.0.1
-  RAMDA_VERSION=0.25.0 ZONEJS_VERSION=0.8.18
-- NG_VERSION=5 TS_VERSION=2.4.2 MAT_VERSION=5 CLI_VERSION=1.7.4 RX_VERSION=5.5.6 RAMDA_VERSION=0.25.0
-  ZONEJS_VERSION=0.8.18
-- NG_VERSION=6 TS_VERSION=2.7.2 MAT_VERSION=6 CLI_VERSION=6 RX_VERSION=6 RAMDA_VERSION=0.25.0
-  ZONEJS_VERSION=0.8.26
+  - NG_VERSION=4 TS_VERSION=2.3.4 MAT_VERSION=2.0.0-beta.12 CLI_VERSION=1.6.1 RX_VERSION=5.0.1
+    RAMDA_VERSION=0.25.0 ZONEJS_VERSION=0.8.18
+  - NG_VERSION=5 TS_VERSION=2.4.2 MAT_VERSION=5 CLI_VERSION=1.7.4 RX_VERSION=5.5.6 RAMDA_VERSION=0.25.0
+    ZONEJS_VERSION=0.8.18
+  - NG_VERSION=6 TS_VERSION=2.7.2 MAT_VERSION=6 CLI_VERSION=6 RX_VERSION=6 RAMDA_VERSION=0.25.0
+    ZONEJS_VERSION=0.8.26
 before_install:
-- export CHROME_BIN=chromium-browser
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
 install:
-- npm install -g @angular/cli@${CLI_VERSION}
-- npm install rxjs@${RX_VERSION} ramda@${RAMDA_VERSION} typescript@${TS_VERSION} zone.js@${ZONEJS_VERSION}
-- npm install @angular/common@${NG_VERSION} @angular/core@${NG_VERSION} @angular/forms@${NG_VERSION}
-- npm install @angular/http@${NG_VERSION} @angular/platform-browser@${NG_VERSION}
-  @angular/platform-browser-dynamic@${NG_VERSION}
-- npm install @angular/compiler@${NG_VERSION} @angular/compiler-cli@${NG_VERSION}
-- npm install @angular/animations@${NG_VERSION} @angular/cdk@${MAT_VERSION} @angular/material@${MAT_VERSION}
-- npm install
+  - npm install -g @angular/cli@${CLI_VERSION}
+  - npm install rxjs@${RX_VERSION} ramda@${RAMDA_VERSION} typescript@${TS_VERSION} zone.js@${ZONEJS_VERSION}
+  - npm install @angular/common@${NG_VERSION} @angular/core@${NG_VERSION} @angular/forms@${NG_VERSION}
+  - npm install @angular/http@${NG_VERSION} @angular/platform-browser@${NG_VERSION}
+    @angular/platform-browser-dynamic@${NG_VERSION}
+  - npm install @angular/compiler@${NG_VERSION} @angular/compiler-cli@${NG_VERSION}
+  - npm install @angular/animations@${NG_VERSION} @angular/cdk@${MAT_VERSION} @angular/material@${MAT_VERSION}
+  - npm install
 script:
-- npm run build
-- npm run test:once
-before_deploy:
-- cd dist
-deploy:
-  provider: npm
-  skip_cleanup: true
-  email: it+github@gorilainvest.com.br
-  on:
-    repo: gorilainvest/angular-date-format
-    tags: true
-  api_key:
-    secure: Qyc+uwaCX8K9LZ/jJEIH4oiw7I0o7y5zXj8ch7uEGd/c5gOReEu1XCjbwHXjklKsx/PkqZ+IioB5qYsiWmocbIHapIzshkR/AlTtyAwTVoApO4egdOvefHtZ74xZU40ctVwrxM4neGZIJOgghD30QsRrdECYOOgsigA2zwL30U8To3NH7G6nVun+aHbDyX3ANjTiBVIY8VtdRVmQ5CHiNQBmLKJBR932gFglhyOh+yNzFRlyb74gp21u/F50CLEOA9N2A6Vgk2/jivp51lTXQ/3ncBaFhFIbOt2fTeXyX7sfIV883f5s8xSV1qQp7mipNhYKdUcbsWtQpR6YmZiUeWb2B7Kdeikv7i5VpwnTYt53gvjdc9HMDrOF7MmI1L+2UsKh707kB28gZqTikVESj2xDMEilakF+BWXu254RaZNHP7d3UKJqzZNcyAHU//a3Twhr1NwCuJmawgOavmYBr7ouExVJyCKVq5TLKlyc87YoRWzNnLqunDrMIfYrSuiVadcgACID9wHDgemQCNXYAGtWPYwRPO+01225DcASoZuC5ZpOTZREScCWIA+5D/FfS/LEpqRc+qqLXdM2Zgo8xCBZv6h1xDz/3mIX/7EKZhzeJcgGv9vyx6y+sBPzYbwk2QwiqFp9d6tnhZQabW8ty5jNM++M5uV20LshpWvwuQs=
+  - npm run build
+  - npm run test:once
+after_success:
+  - npm run travis-deploy-once "npm run semantic-release"
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
